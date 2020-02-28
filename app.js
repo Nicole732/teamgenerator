@@ -10,86 +10,94 @@ const outputPath = path.join(OUTPUT_DIR, 'team.html');
 
 const render = require('./lib/htmlRenderer');
 
+const employeeList = [];
+
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-const gatherTeamInfo = [
+
+const managerQuestions = [
     {
         type: "input",
         name: "name",
-        message: "What is your name?"
+        message: "What is the manager's name?"
     },
     {
         type: "input",
         name: "userid",
-        message: "Please enter your id:"
+        message: "Please enter the manager's id:"
     },
     {
         type: "input",
         name: "email",
-        message: "What is your email address?"
-    },
-    {
-        type: "checkbox",
-        name: "empType",
-        message: "What is ypur role?",
-        choices: [
-            "Manager",
-            "Engineer",
-            "Intern",
-            "Employee"
-        ]
-    },
-    {
-        type: "input",
-        name: "username",
-        message: "What is your GitHub UserName: (for engineers only)"
-    },
-    {
-        type: "input",
-        name: "school",
-        message: "What is your school's name: (for interns only)"
+        message: "What is the manager's email address?"
     },
     {
 
         type: "input",
         name: "officeNum",
-        message: "What is your office number:"
+        message: "What is the manager's office number:"
 
     }
 
 ];
-// function to log information based on each type
-function writeToFile(fileName, data) {
+const engineerQuestions = [
+    {
+        type: "input",
+        name: "name",
+        message: "What is the engineers's name?"
+    },
+    {
+        type: "input",
+        name: "userid",
+        message: "Please enter the engineers's id:"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the engineers's email address?"
+    },
+    {
 
-    //do something
-    fs.writeFile(fileName, JSON.stringify(data, null, '\t'), function(err) {
-        if (err) {
-           return console.log(err);
-        }
-  
-        console.log(`Sucess with ${data.name}`);
-    });
-}
-
-inquirer.prompt(gatherTeamInfo)
-.then(function(data){
-
-    // if engineer, intern or engineer
-    var filename =`./output/${data.name}.txt`;
-    console.log(filename);
-    //"Manager","Engineer","Intern","Employee"
-    if (data.empType === "Engineer") {
-        // engineer info
-       const text = `
-        ${date.name}
-        ${data.id}
-        `;
-        writeFile(filename, text);
+        type: "input",
+        name: "githubRepo",
+        message: "What is the engineers's GitHub username?"
 
     }
 
-});
+];
+
+const internQuestions = [
+    {
+        type: "input",
+        name: "name",
+        message: "What is the intern's name?"
+    },
+    {
+        type: "input",
+        name: "userid",
+        message: "Please enter  the intern's id:"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the intern's email address?"
+    },
+    {
+
+        type: "input",
+        name: "school",
+        message: "What is  the intern's school's name?"
+
+    }
+
+];
+
+
+// function to log information based on each type
+
+
+
 // HINT: each employee type (manager, engineer, or intern) has slightly different
 // information; write your code to ask different questions via inquirer depending on
 // employee type.
@@ -100,7 +108,53 @@ inquirer.prompt(gatherTeamInfo)
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work!```
 
-const init = () => {};
+const init = () => {
+    console.log("Please build your team");
+    inquirer.prompt(managerQuestions).then(function (response) {
+        // make a new Manager object
+        askUserType();
+    })
+};
+
+function askEngineer(){
+
+    inquirer.prompt(engineerQuestions).then(function(response){
+        //make engineer object...
+        askUserType();
+
+    })
+}
+
+function askUserType() {
+
+    inquirer.prompt(
+        {
+            type: "list",
+            name: "userType",
+            message: "Do you want to add another team member?",
+            choices: [
+                "Engineer",
+                "Intern",
+                "I don't want to add anymore"
+            ]
+        }
+    ).then(function (data) {
+        if (data.userType === "Engineer") {
+            askEngineer();
+        }
+        else if (data.userType === "Intern") {
+            askIntern();
+        }
+        else {
+            // make html
+            render(employeeList);
+
+            
+        }
+    })
+}
+
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
