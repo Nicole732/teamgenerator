@@ -41,6 +41,7 @@ const managerQuestions = [
     }
 
 ];
+
 const engineerQuestions = [
     {
         type: "input",
@@ -112,6 +113,7 @@ const init = () => {
     console.log("Please build your team");
     inquirer.prompt(managerQuestions).then(function (response) {
         // make a new Manager object
+        console.log(response);
         askUserType();
     })
 };
@@ -120,6 +122,17 @@ function askEngineer(){
 
     inquirer.prompt(engineerQuestions).then(function(response){
         //make engineer object...
+        console.log(response);
+        askUserType();
+
+    })
+}
+
+function askIntern(){
+
+    inquirer.prompt(internQuestions).then(function(response){
+        //make engineer object...
+        console.log(response);
         askUserType();
 
     })
@@ -147,7 +160,7 @@ function askUserType() {
         }
         else {
             // make html
-            render(employeeList);
+            //render(employeeList);
 
             
         }
