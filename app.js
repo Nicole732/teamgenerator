@@ -135,12 +135,12 @@ function askIntern() {
 
     inquirer.prompt(internQuestions).then(function (response) {
         //make engineer object...
-        //console.log(response);
+        console.log(response);
 
-        const newIntern = new Manager(response.name, response.userid, response.email, response.school);
+        const newIntern = new Intern(response.name, response.userid, response.email, response.school);
         employeeList.push(newIntern);
 
-        //console.log(employeeList);
+        console.log(employeeList);
         askNewEmp();
 
     })
