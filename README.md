@@ -8,17 +8,17 @@ This is a Node CLI app that takes in information about employees and generates a
 
 ## Table of Content
 
-[* Description](#Description)
-[* Usage](#Usage)
-[* License](#License)
-[* Contributing](#Contibuting)
-[* Demo](#Demo)
+[* Description](#Description) \
+[* Usage](#Usage) \
+[* License](#License) \
+[* Contributing](#Contibuting) \
+[* Demo](#Demo) \
 
 ## Demo
 
 
 ## Usage
-As a manager
+As a manager,
 I want to generate a webpage that displays my team's basic info
 so that I have quick access to emails and GitHub profiles.
 
