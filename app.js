@@ -12,8 +12,8 @@ const render = require('./lib/htmlRenderer');
 
 const employeeList = [];
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+// gather information about the development team members,
+// and create objects for each team member (using the correct classes as blueprints!)
 
 
 const managerQuestions = [
@@ -94,56 +94,67 @@ const internQuestions = [
 
 ];
 
-
-// function to log information based on each type
-
-
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
+// code to ask different questions via inquirer depending on
 // employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work!```
+// we initialise with a manager who has the responsibility to build his team
 
 const init = () => {
-    console.log("Please build your team");
+    console.log("Build your engineering team:");
     inquirer.prompt(managerQuestions).then(function (response) {
         // make a new Manager object
-        console.log(response);
-        askUserType();
+        //console.log(response);
+
+
+        const newManager = new Manager(response.name, response.userid, response.email, response.officeNum);
+        
+        // add the information collected about the new manager to the employeeList
+        employeeList.push(newManager);
+
+        //console.log(employeeList);
+        // prompts for more employees input
+
+        askNewEmp();
     })
 };
+// collects user's input to create an engineer
+function askEngineer() {
 
-function askEngineer(){
-
-    inquirer.prompt(engineerQuestions).then(function(response){
+    inquirer.prompt(engineerQuestions).then(function (response) {
         //make engineer object...
-        console.log(response);
-        askUserType();
+        //console.log(response);
+
+        const newEngineer = new Engineer(response.name, response.userid, response.email, response.githubRepo);
+        employeeList.push(newEngineer);
+
+        askNewEmp();
+        //console.log(employeeList);
+    })
+}
+//collect user's input to create an intern
+function askIntern() {
+
+    inquirer.prompt(internQuestions).then(function (response) {
+        //make engineer object...
+        //console.log(response);
+
+        const newIntern = new Manager(response.name, response.userid, response.email, response.school);
+        employeeList.push(newIntern);
+
+        //console.log(employeeList);
+        askNewEmp();
 
     })
 }
 
-function askIntern(){
+// gives option for the user to add more employee
+//and generates the desired employee type
 
-    inquirer.prompt(internQuestions).then(function(response){
-        //make engineer object...
-        console.log(response);
-        askUserType();
-
-    })
-}
-
-function askUserType() {
+function askNewEmp() {
 
     inquirer.prompt(
         {
             type: "list",
-            name: "userType",
+            name: "newEmp",
             message: "Do you want to add another team member?",
             choices: [
                 "Engineer",
@@ -152,33 +163,30 @@ function askUserType() {
             ]
         }
     ).then(function (data) {
-        if (data.userType === "Engineer") {
+        if (data.newEmp === "Engineer") {
             askEngineer();
         }
-        else if (data.userType === "Intern") {
+        else if (data.newEmp === "Intern") {
             askIntern();
         }
         else {
-            // make html
-            //render(employeeList);
-
-            
+            stopEmployeeInput();
         }
     })
 }
 
+// generates employees html file in output directory 
+//using the render function in htmlRenderer
+function stopEmployeeInput() {
 
+    if (!fs.existsSync(OUTPUT_DIR)) {
 
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
+        fs.mkdirSync(OUTPUT_DIR);
 
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above to target this location.
+    }
+    fs.writeFileSync(outputPath,render(employeeList));
+    console.log("Your team is generated!")
+}
 
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not. The fs npm package may have methods to check if a directory exists, and they
-// may also have methods to create a directory that doesn't...
 
 init();
