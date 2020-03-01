@@ -16,6 +16,8 @@ This is a Node CLI app that takes in information about employees and generates a
 
 ## Demo
 
+[Demogif](https://drive.google.com/file/d/1Fi9SxAvLGoRqZzmDn5agXBA1SQQtuGeO/view?usp=sharing)
+
 
 ## Usage
 As a manager,
