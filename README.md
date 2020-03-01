@@ -12,7 +12,7 @@ This is a Node CLI app that takes in information about employees and generates a
 [* Usage](#Usage) \
 [* License](#License) \
 [* Contributing](#Contibuting) \
-[* Demo](#Demo) \
+[* Demo](#Demo) 
 
 ## Demo
 
