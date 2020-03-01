@@ -16,8 +16,8 @@ This is a Node CLI app that takes in information about employees and generates a
 
 ## Demo
 
-click this link :[Demogif](https://drive.google.com/file/d/1Fi9SxAvLGoRqZzmDn5agXBA1SQQtuGeO/view?usp=sharing)
-or view the gif below:
+click this link to view the demo below:[Demogif](https://drive.google.com/file/d/1Fi9SxAvLGoRqZzmDn5agXBA1SQQtuGeO/view?usp=sharing) \
+
 ![teamgeneratorfinal](https://user-images.githubusercontent.com/58992132/75634713-0bf9a980-5bde-11ea-9077-0ea8bb61a44e.gif)
 
 
